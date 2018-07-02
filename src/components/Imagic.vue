@@ -3,14 +3,15 @@
     <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicStyleLoad()" >
     </div>
     <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
-      <h3 style="title" v-if="src === null">{{ errorTitle }}</h3>
+      <h3 style="title" v-if="imageError">{{ errorTitle }}</h3>
       <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
-      <div class="loader" v-if="src !== null"></div>
+      <div class="loader" v-if="!imageLoaded"></div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'imagic',
   props: {
@@ -50,6 +51,7 @@ export default {
   data () {
     return {
       imageLoaded: false,
+      imageError: false,
       imagicImage: {
         width: (this.square) ? '100%' : this.width,
         paddingTop: (this.square) ? '100%' : this.height,
@@ -58,42 +60,58 @@ export default {
       pseudoBlur: true,
       loadWrapperStyle: {
         backgroundColor: this.loadWrapper
-      }
+      },
+      startLoading: false,
     }
   },
   methods: {
     imagicStyleLoad () {
-      // let image = new Image()
-      // image.onload = () => {
-      //   // console.log('LOADED')
-      //   this.imageLoaded = true
-      //   this.imagicImage.backgroundImage = 'url("' + this.src + '")'
-      //   if (this.blur === false) {
-      //     if (this.src_big === null) {
-      //       setTimeout(() => {
-      //         this.pseudoBlur = false
-      //       }, 300)  
-      //     } else {
-            
-      //     }
-      //   }
-      // }
-      // image.src = this.src
-      this.loadImage(this.src).then(res => {
-        console.log(re)
-      })
+      if (this.src !== null && !this.startLoading) {
+        this.startLoading = true
+        console.log('start loading SMALL')
+        this.loadImage(this.src).then(res => { //  Start loading a normal image 
+          console.log('finish loading SMALL')
+          this.imagicImage.backgroundImage = res  // Setting a default source image 
+          console.log(this.imagicImage, '< this is small')
+          this.imageLoaded = true // open normal image and stay blurring it 
+          console.log('start loading BIG')
+          this.loadImage(this.src_big).then(Response => { // loading Big image 
+            console.log('finish loading BIG')
+            console.log(Response)
+            this.imagicImage.backgroundImage = Response // setting new Big image
+            console.log(this.imagicImage, '< this is big' , Response)
+            setTimeout(() => {
+              this.pseudoBlur = (this.blur) ? true : false // open from blurring 
+            },300)
+            // return this.imagicImage
+          }).catch(err => { // if Big Image loading failed 
+            setTimeout(() => {
+              this.pseudoBlur = (this.blur) ? true : false // open from blurring  with small image 
+            },300)
+          })
+        }).catch(err => {
+          this.imageError =  true
+          console.log(err)
+        })
+        console.log('FINISH')
+      }
       return this.imagicImage
     },
-    async loadImage(url) {
-      let image = new Image()
-      let result_url = null
-      image.onload = await function() {
-        result_url = 'url("' + this.src + '")'
-      }
-      image.src = url
-      return result_url
+    loadImage(url) {
+      return new Promise((resolve, reject ) => {
+        let image = new Image()
+        let result_url = null
+        image.onload = () =>  {
+          result_url = 'url("' + url + '")'
+          resolve(result_url)
+        }
+        image.onerror = () => {
+          reject(null)
+        }
+        image.src = url
+      })  
     }
-  }
+  },
 }
 </script>
 
@@ -114,7 +132,7 @@ export default {
   transition: transform .3s ease-in-out;
 }
 .imagic-image.blur{
-  filter: blur(10px);
+  filter: blur(0px);
   transform: scale(1.5);
 }
 .title {
