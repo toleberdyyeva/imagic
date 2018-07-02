@@ -11,6 +11,8 @@
 </template>
 
 <script>
+// TODO:  Make Event handle for Image loaded status 
+// FIXME: add time delay for blur-out
 /* eslint-disable */
 export default {
   name: 'imagic',
@@ -39,7 +41,7 @@ export default {
       default: true,
       required: false
     },
-    loadWrapper: {
+    loadWrapperColor: {
       default: '#e5e5e5',
       required: false
     },
@@ -59,7 +61,7 @@ export default {
       },
       pseudoBlur: true,
       loadWrapperStyle: {
-        backgroundColor: this.loadWrapper
+        backgroundColor: this.loadWrapperColor
       },
       startLoading: false,
     }
@@ -68,18 +70,11 @@ export default {
     imagicStyleLoad () {
       if (this.src !== null && !this.startLoading) {
         this.startLoading = true
-        console.log('start loading SMALL')
         this.loadImage(this.src).then(res => { //  Start loading a normal image 
-          console.log('finish loading SMALL')
           this.imagicImage.backgroundImage = res  // Setting a default source image 
-          console.log(this.imagicImage, '< this is small')
           this.imageLoaded = true // open normal image and stay blurring it 
-          console.log('start loading BIG')
           this.loadImage(this.src_big).then(Response => { // loading Big image 
-            console.log('finish loading BIG')
-            console.log(Response)
             this.imagicImage.backgroundImage = Response // setting new Big image
-            console.log(this.imagicImage, '< this is big' , Response)
             setTimeout(() => {
               this.pseudoBlur = (this.blur) ? true : false // open from blurring 
             },300)
@@ -91,9 +86,7 @@ export default {
           })
         }).catch(err => {
           this.imageError =  true
-          console.log(err)
         })
-        console.log('FINISH')
       }
       return this.imagicImage
     },
@@ -132,7 +125,7 @@ export default {
   transition: transform .3s ease-in-out;
 }
 .imagic-image.blur{
-  filter: blur(0px);
+  filter: blur(20px);
   transform: scale(1.5);
 }
 .title {
@@ -170,3 +163,4 @@ export default {
   100% { transform: rotate(360deg); }
 }
 </style>
+

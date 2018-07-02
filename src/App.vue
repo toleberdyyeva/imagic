@@ -3,7 +3,7 @@
     <div style="width:50%">
       <h1>Simple Image Async Loading </h1>
       <div v-for="(image, index) in images" :key="index" >
-        <imagic :square='false' :src="image.sm" :src_big='image.big' />
+        <imagic :square='false' :src='image.big' />
         {{ image }}
         <br>
       </div>
@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-/* eslint-disable */
 import Imagic from './components/Imagic'
 export default {
   name: 'App',
