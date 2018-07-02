@@ -1,13 +1,10 @@
 <template>
   <div>
-    <div style="width:200px;">
-      <imagic/>
-    </div>
+    <imagic width='100px' square='false' />
   </div>
 </template>
 <script>
 import Imagic from './components/Imagic'
-
 export default {
   name: 'App',
   components: {
