@@ -1,5 +1,4 @@
 <template>
-import func from './vue-temp/vue-editor-bridge';
   <div class="imagic">
     <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicStyleLoad()" >
     </div>
@@ -81,7 +80,7 @@ export default {
       // }
       // image.src = this.src
       this.loadImage(this.src).then(res => {
-        console.log(res)
+        console.log(re)
       })
       return this.imagicImage
     },

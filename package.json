@@ -1,6 +1,6 @@
 {
     "name": "imagic",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "A simple component for async image loading ",
     "author": "@toleberdyyeva && @leBaur23",
     "private": true,
