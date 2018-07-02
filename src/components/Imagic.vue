@@ -12,6 +12,7 @@
 
 <script>
 // TODO:  Make Event handle for Image loaded status 
+//           Also prepare a beatifull README.md :D 
 // FIXME: add time delay for blur-out
 /* eslint-disable */
 export default {
