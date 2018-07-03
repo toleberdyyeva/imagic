@@ -10,10 +10,11 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 // TODO:  Make Event handle for Image loaded status 
 //           Also prepare a beatifull README.md :D 
 // FIXME: add time delay for blur-out
-/* eslint-disable */
+
 export default {
   name: 'imagic',
   props: {
@@ -51,7 +52,7 @@ export default {
       imageLoaded: false,
       imageError: false,
       imagicImage: {
-        'padding-top': (this.height === null) ? '100%' : this.height  ,
+        'padding-top' : (this.height === null) ? '100%' : this.height  ,
         backgroundImage: null
       },
       pseudoBlur: true,
