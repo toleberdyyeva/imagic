@@ -9,7 +9,6 @@
     </div>
   </div>
 </template>
-
 <script>
 // TODO:  Make Event handle for Image loaded status 
 //           Also prepare a beatifull README.md :D 
@@ -31,15 +30,11 @@ export default {
       required: false
     },
     width: {
-      default: '100%',
+      default: null,
       required: false
     },
     height: {
-      default: '100%',
-      required: false
-    },
-    square: {
-      default: true,
+      default: null,
       required: false
     },
     loadWrapperColor: {
@@ -56,8 +51,7 @@ export default {
       imageLoaded: false,
       imageError: false,
       imagicImage: {
-        width: (this.square) ? '100%' : this.width,
-        paddingTop: (this.square) ? '100%' : this.height,
+        'padding-top': (this.height === null) ? '100%' : this.height  ,
         backgroundImage: null
       },
       pseudoBlur: true,
@@ -118,11 +112,13 @@ export default {
 }
 .imagic-image{
   width: 100%;
-  padding-top: 100%;
   background-color: #e5e5e5;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  transition: transform .3s ease-in-out;
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: -webkit-transform .3s ease-in-out;
   transition: transform .3s ease-in-out;
 }
 .imagic-image.blur{
