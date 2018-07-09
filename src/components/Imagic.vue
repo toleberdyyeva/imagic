@@ -5,7 +5,9 @@
     <div class="imagic-loader-wrapper" :style="loadWrapperStyle">
       <h3 class="title" v-if="imageError">{{ errorTitle }}</h3>
       <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
-      <div class="loader" v-if="!imageLoaded"></div>
+      <div v-if="loader">
+        <div class="loader" v-if="!imageLoaded"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +20,10 @@
 export default {
   name: 'imagic',
   props: {
+    loader: {
+      default: true,
+      required: false,
+    },
     src: {
       default: null,
       required: false
