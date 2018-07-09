@@ -2,8 +2,8 @@
   <div class="imagic">
     <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicStyleLoad()" >
     </div>
-    <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
-      <h3 style="title" v-if="imageError">{{ errorTitle }}</h3>
+    <div class="imagic-loader-wrapper" :style="loadWrapperStyle">
+      <h3 class="title" v-if="imageError">{{ errorTitle }}</h3>
       <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
       <div class="loader" v-if="!imageLoaded"></div>
     </div>
@@ -92,7 +92,11 @@ export default {
     },
     finishLoaded(status){
       if (status) { this.pseudoBlur = (this.blur) ? true : false }
-      else { this.pseudoBlur = status  }
+      else { 
+        this.pseudoBlur = status
+        this.imageError = true
+      }
+      this.imageLoaded = true
       this.$emit('input', status) 
     },
     loadImage(url) {
@@ -136,8 +140,8 @@ export default {
   transform: scale(1.5);
 }
 .title {
-  text-align: center;
-  width: 100%;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.3);
 }
 .imagic-loader-wrapper{
   display: flex;

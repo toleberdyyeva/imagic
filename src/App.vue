@@ -19,8 +19,8 @@ export default {
     return {
       images: [
         {
-          sm: 'https://res.cloudinary.com/demo/image/upload/w_70,h_53,c_scale/turtles.jpg',
-          big: 'https://res.cloudinary.com/demo/image/upload/turtles.jpg',
+          sm: 'https://res.cloudinary.com/demo/image/upload/waa_70,h_53,c_scale/turtles.jpg',
+          big: 'https://res.cloudinary.com/demo/image/upload/aaturtles.jpg',
           laoded: false,
         },
         // {
