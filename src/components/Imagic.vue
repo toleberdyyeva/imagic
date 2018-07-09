@@ -2,7 +2,6 @@
   <div class="imagic">
     <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicStyleLoad()" >
     </div>
-    // wrappper 
     <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
       <h3 class="title" v-if="imageError">{{ errorTitle }}</h3>
       <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
