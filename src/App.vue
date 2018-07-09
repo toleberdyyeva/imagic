@@ -20,7 +20,7 @@ export default {
       images: [
         {
           sm: 'https://res.cloudinary.com/demo/image/upload/waa_70,h_53,c_scale/turtles.jpg',
-          big: 'https://res.cloudinary.com/demo/image/upload/aaturtles.jpg',
+          big: 'https://res.cloudinary.com/demo/image/upload/turtles.jpg',
           laoded: false,
         },
         // {

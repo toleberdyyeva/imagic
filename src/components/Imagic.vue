@@ -2,7 +2,8 @@
   <div class="imagic">
     <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicStyleLoad()" >
     </div>
-    <div class="imagic-loader-wrapper" :style="loadWrapperStyle">
+    // wrappper 
+    <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
       <h3 class="title" v-if="imageError">{{ errorTitle }}</h3>
       <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
       <div v-if="loader">
@@ -90,19 +91,21 @@ export default {
             },this.afterDelay)
           })
         }).catch(err => {
-          this.imageError =  true
           this.finishLoaded(false)
         })
       }
       return this.imagicImage
     },
     finishLoaded(status){
-      if (status) { this.pseudoBlur = (this.blur) ? true : false }
-      else { 
-        this.pseudoBlur = status
-        this.imageError = true
+      if (status) { 
+        this.pseudoBlur = (this.blur) ? true : false 
+        this.imageLoaded = true
       }
-      this.imageLoaded = true
+      else { 
+        this.pseudoBlur = false
+        this.imageError = true
+        this.imageLoaded = false
+      }
       this.$emit('input', status) 
     },
     loadImage(url) {
