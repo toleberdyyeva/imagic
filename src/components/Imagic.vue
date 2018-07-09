@@ -131,9 +131,13 @@ export default {
   overflow: hidden;
   position: relative;
   width: 100%;
+  height: 100%;
+
 }
 .imagic-image{
   width: 100%;
+  position: absolute;
+  top: 0; bottom: 0;
   background-color: #e5e5e5;
   background-position: center;
   background-repeat: no-repeat;
