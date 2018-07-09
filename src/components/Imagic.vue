@@ -45,6 +45,10 @@ export default {
     errorTitle: {
       default: 'Sorry, image did not load.',
       required: false
+    },
+    afterDelay: {
+      default: 1000,
+      required: false,
     }
   },
   data () {
@@ -72,19 +76,24 @@ export default {
           this.loadImage(this.src_big).then(Response => { // loading Big image 
             this.imagicImage.backgroundImage = Response // setting new Big image
             setTimeout(() => {
-              this.pseudoBlur = (this.blur) ? true : false // open from blurring 
-            },300)
-            // return this.imagicImage
+              this.finishLoaded(true) // open from blurring  with big image  
+            },this.afterDelay)
           }).catch(err => { // if Big Image loading failed 
             setTimeout(() => {
-              this.pseudoBlur = (this.blur) ? true : false // open from blurring  with small image 
-            },300)
+              this.finishLoaded(true) // open from blurring  with small image 
+            },this.afterDelay)
           })
         }).catch(err => {
           this.imageError =  true
+          this.finishLoaded(false)
         })
       }
       return this.imagicImage
+    },
+    finishLoaded(status){
+      if (status) { this.pseudoBlur = (this.blur) ? true : false }
+      else { this.pseudoBlur = status  }
+      this.$emit('input', status) 
     },
     loadImage(url) {
       return new Promise((resolve, reject ) => {

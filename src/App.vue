@@ -3,8 +3,8 @@
     <div style="width:50%">
       <h1>Simple Image Async Loading </h1>
       <div v-for="(image, index) in images" :key="index" >
-        <imagic height='100%' :src='image.big' />
-        {{ image }}
+        <imagic height='100%' :src='image.big' v-model="image.laoded"  />
+        {{ image.laoded }}
         <br>
       </div>
     </div>
