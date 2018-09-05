@@ -78,18 +78,15 @@ export default {
   },
   watch: {
     'src': function (value) {
-      alert(value)
       this.imagicStyleLoad()
     },
     'src_big':function (value) {
-      alert(value)
       this.imagicStyleLoad()
     }
   },
   methods: {
     imagicStyleLoad () {
       if (this.src !== null && !this.startLoading) {
-        alert('??')
         this.startLoading = true
         this.loadImage(this.src).then(res => { //  Start loading a normal image
           this.imagicImage.backgroundImage = res  // Setting a default source image
