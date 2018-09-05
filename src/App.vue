@@ -1,12 +1,12 @@
 <template>
   <div>
       <h1>Simple Image Async Loading </h1>
-      <div style="width:100px; height: 1000px;">
-        <imagic height='100%' :src='image.big' v-model="image.laoded" :loader='false'  />
+      <input type="text" v-model="imageLink">
+      <div style="width: 300px; height: 300px;">
+        <imagic height='100%' :src='image.big' :src_big="imageLink" v-model="image.laoded" :loader='false'  />
         {{ image.laoded }}
       </div>
     </div>
-  </div>
 </template>
 <script>
 /* eslint-disable */
@@ -15,6 +15,7 @@ export default {
   name: 'App',
   data () {
     return {
+      imageLink: 'https://blznav.akamaized.net/img/games/cards/card-world-of-warcraft-54576e6364584e35.jpg',
       images: [
         {
           sm: 'https://res.cloudinary.com/demo/image/upload/waa_70,h_53,c_scale/turtles.jpg',

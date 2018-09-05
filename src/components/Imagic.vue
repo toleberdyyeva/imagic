@@ -1,20 +1,24 @@
 <template>
-  <div class="imagic">
-    <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicStyleLoad()" >
-    </div>
-    <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
-      <h3 class="title" v-if="imageError">{{ errorTitle }}</h3>
-      <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
-      <div v-if="loader">
-        <div class="loader" v-if="!imageLoaded"></div>
+
+    <div class="imagic">
+        {{ imagicStyleLoad }}
+      <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicImage" >
+      </div>
+      <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
+        <h3 class="title" v-if="imageError">{{ errorTitle }}</h3>
+        <!-- <h3 style="title" >{{ imagicStyle }}</h3> -->
+        <div v-if="loader">
+          <div class="loader" v-if="!imageLoaded"></div>
+        </div>
       </div>
     </div>
-  </div>
+    <!--{{ src }}-->
+
 </template>
 <script>
 /* eslint-disable */
-// TODO:  Make Event handle for Image loaded status 
-//           Also prepare a beatifull README.md :D 
+// TODO:  Make Event handle for Image loaded status
+//           Also prepare a beatifull README.md :D
 // FIXME: add time delay for blur-out
 
 export default {
@@ -72,40 +76,52 @@ export default {
       startLoading: false,
     }
   },
+  watch: {
+    'src': function (value) {
+      alert(value)
+      this.imagicStyleLoad()
+    },
+    'src_big':function (value) {
+      alert(value)
+      this.imagicStyleLoad()
+    }
+  },
   methods: {
     imagicStyleLoad () {
       if (this.src !== null && !this.startLoading) {
+        alert('??')
         this.startLoading = true
-        this.loadImage(this.src).then(res => { //  Start loading a normal image 
-          this.imagicImage.backgroundImage = res  // Setting a default source image 
-          this.imageLoaded = true // open normal image and stay blurring it 
-          this.loadImage(this.src_big).then(Response => { // loading Big image 
+        this.loadImage(this.src).then(res => { //  Start loading a normal image
+          this.imagicImage.backgroundImage = res  // Setting a default source image
+          this.imageLoaded = true // open normal image and stay blurring it
+          this.loadImage(this.src_big).then(Response => { // loading Big image
             this.imagicImage.backgroundImage = Response // setting new Big image
             setTimeout(() => {
-              this.finishLoaded(true) // open from blurring  with big image  
+              this.finishLoaded(true) // open from blurring  with big image
             },this.afterDelay)
-          }).catch(err => { // if Big Image loading failed 
+          }).catch(err => { // if Big Image loading failed
             setTimeout(() => {
-              this.finishLoaded(true) // open from blurring  with small image 
+              this.finishLoaded(true) // open from blurring  with small image
             },this.afterDelay)
           })
         }).catch(err => {
           this.finishLoaded(false)
         })
       }
+      this.startLoading = false
       return this.imagicImage
     },
     finishLoaded(status){
-      if (status) { 
-        this.pseudoBlur = (this.blur) ? true : false 
+      if (status) {
+        this.pseudoBlur = (this.blur) ? true : false
         this.imageLoaded = true
       }
-      else { 
+      else {
         this.pseudoBlur = false
         this.imageError = true
         this.imageLoaded = false
       }
-      this.$emit('input', status) 
+      this.$emit('input', status)
     },
     loadImage(url) {
       return new Promise((resolve, reject ) => {
@@ -119,9 +135,12 @@ export default {
           reject(null)
         }
         image.src = url
-      })  
+      })
     }
   },
+  beforeMount() {
+    this.imagicStyleLoad()
+  }
 }
 </script>
 
