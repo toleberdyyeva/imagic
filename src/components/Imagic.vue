@@ -1,7 +1,5 @@
 <template>
-
-    <div class="imagic">
-        {{ imagicStyleLoad }}
+   <div class="imagic">
       <div class="imagic-image" :class="{ 'blur': pseudoBlur }" :style="imagicImage" >
       </div>
       <div class="imagic-loader-wrapper" :style="loadWrapperStyle" v-if="!imageLoaded">
@@ -12,8 +10,6 @@
         </div>
       </div>
     </div>
-    <!--{{ src }}-->
-
 </template>
 <script>
 /* eslint-disable */
