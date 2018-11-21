@@ -32,6 +32,10 @@ export default {
       default: null,
       required: false
     },
+    failed_src: {
+      default: 'https://preview.ibb.co/jnnbHA/card-white-brand.png',
+      required: false
+    },
     blur: {
       default: false,
       required: false
@@ -98,7 +102,15 @@ export default {
             },this.afterDelay)
           })
         }).catch(err => {
-          this.finishLoaded(false)
+          this.loadImage(this.failed_src).then(res => {
+            this.imagicImage.backgroundImage = res // setting new Big image
+            this.imageLoaded = true
+            setTimeout(() => {
+              this.finishLoaded(true) // open from blurring  with big image
+            },this.afterDelay)
+          }).catch(error => {
+            this.finishLoaded(false)
+          })
         })
       }
       this.startLoading = false

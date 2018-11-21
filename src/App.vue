@@ -15,17 +15,17 @@ export default {
   name: 'App',
   data () {
     return {
-      imageLink: 'https://blznav.akamaized.net/img/games/cards/card-world-of-warcraft-54576e6364584e35.jpg',
+      imageLink: 'https://res.cloudinary.com/demo/image/upload/turtles.jpg',
       images: [
         {
           sm: 'https://res.cloudinary.com/demo/image/upload/waa_70,h_53,c_scale/turtles.jpg',
-          big: 'https://res.cloudinary.com/demo/image/upload/turtles.jpg',
+          big: 'http://test.foxout.kz/media/events_core/posters/asd.png',
           laoded: false,
         },
       ],
       image: {
           sm: 'https://res.cloudinary.com/demo/image/upload/waa_70,h_53,c_scale/turtles.jpg',
-          big: 'https://res.cloudinary.com/demo/image/upload/turtles.jpg',
+          big: 'http://test.foxout.kz/media/events_core/posters/asd.png',
           laoded: false,
       },
     }
