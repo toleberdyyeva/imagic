@@ -94,11 +94,11 @@ export default {
           this.loadImage(this.src_big).then(Response => { // loading Big image
             this.imagicImage.backgroundImage = Response // setting new Big image
             setTimeout(() => {
-              this.finishLoaded(true) // open from blurring  with big image
+              this.finishLoaded(true, this.src_big) // open from blurring  with big image
             },this.afterDelay)
           }).catch(err => { // if Big Image loading failed
             setTimeout(() => {
-              this.finishLoaded(true) // open from blurring  with small image
+              this.finishLoaded(true, this.src) // open from blurring  with small image
             },this.afterDelay)
           })
         }).catch(err => {
@@ -106,17 +106,17 @@ export default {
             this.imagicImage.backgroundImage = res // setting new Big image
             this.imageLoaded = true
             setTimeout(() => {
-              this.finishLoaded(true) // open from blurring  with big image
+              this.finishLoaded(true, null) // open from blurring  with big image
             },this.afterDelay)
           }).catch(error => {
-            this.finishLoaded(false)
+            this.finishLoaded(false, null)
           })
         })
       }
       this.startLoading = false
       return this.imagicImage
     },
-    finishLoaded(status){
+    finishLoaded(status, url){
       if (status) {
         this.pseudoBlur = (this.blur) ? true : false
         this.imageLoaded = true
@@ -127,6 +127,7 @@ export default {
         this.imageLoaded = false
       }
       this.$emit('input', status)
+      this.$emit('image-loaded',url)
     },
     loadImage(url) {
       return new Promise((resolve, reject ) => {
