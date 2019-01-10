@@ -91,16 +91,18 @@ export default {
         this.loadImage(this.src).then(res => { //  Start loading a normal image
           this.imagicImage.backgroundImage = res  // Setting a default source image
           this.imageLoaded = true // open normal image and stay blurring it
-          this.loadImage(this.src_big).then(Response => { // loading Big image
-            this.imagicImage.backgroundImage = Response // setting new Big image
-            setTimeout(() => {
-              this.finishLoaded(true, this.src_big) // open from blurring  with big image
-            },this.afterDelay)
-          }).catch(err => { // if Big Image loading failed
-            setTimeout(() => {
-              this.finishLoaded(true, this.src) // open from blurring  with small image
-            },this.afterDelay)
-          })
+          if (this.src_big != null) {
+            this.loadImage(this.src_big).then(Response => { // loading Big image
+              this.imagicImage.backgroundImage = Response // setting new Big image
+              setTimeout(() => {
+                this.finishLoaded(true, this.src_big) // open from blurring  with big image
+              },this.afterDelay)
+            }).catch(err => { // if Big Image loading failed
+              setTimeout(() => {
+                this.finishLoaded(true, this.src) // open from blurring  with small image
+              },this.afterDelay)
+            })
+          }
         }).catch(err => {
           this.loadImage(this.failed_src).then(res => {
             this.imagicImage.backgroundImage = res // setting new Big image
