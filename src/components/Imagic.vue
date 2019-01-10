@@ -102,6 +102,10 @@ export default {
                 this.finishLoaded(true, this.src) // open from blurring  with small image
               },this.afterDelay)
             })
+          } else {
+            setTimeout(() => {
+              this.finishLoaded(true, this.src) // open from blurring  with small image
+            },this.afterDelay)
           }
         }).catch(err => {
           this.loadImage(this.failed_src).then(res => {
